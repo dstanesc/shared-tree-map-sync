@@ -5,16 +5,18 @@ export async function mapSync(
   source: FluidMode,
   target: FluidMode
 ) {
-  const sourceMap = await initMap(sourceId, source);
-  const targetMap = await initMap(undefined, target);
-  console.log("replica id", targetMap.mapId());
-  const initialState: Map<string, string> = sourceMap.asMap();
-  console.log("Replicating initial state", initialState);
-  targetMap.setMany(initialState);
+  const { sourceMap, targetMap } = await mapSyncOnce(
+    sourceId,
+    undefined,
+    source,
+    target
+  );
   const eventStream = sourceMap.getBufferingBinder();
   eventStream.bindOnChange(
     (key, value) => {
-      console.log(`Replicating incremental update key: ${key}, value: ${value}`);
+      console.log(
+        `Replicating incremental update key: ${key}, value: ${value}`
+      );
       targetMap.set(key, value);
     },
     (key) => {
@@ -23,4 +25,19 @@ export async function mapSync(
     }
   );
   return targetMap;
+}
+
+export async function mapSyncOnce(
+  sourceId: string | undefined,
+  targetId: string | undefined,
+  source: FluidMode,
+  target: FluidMode
+) {
+  const sourceMap = await initMap(sourceId, source);
+  const targetMap = await initMap(targetId, target);
+  console.log("replica id", targetMap.mapId());
+  const initialState: Map<string, string> = sourceMap.asMap();
+  console.log("Replicating initial state", initialState);
+  targetMap.setMany(initialState);
+  return { sourceMap, targetMap };
 }
