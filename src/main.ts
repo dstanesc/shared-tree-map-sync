@@ -36,8 +36,10 @@ function readMultipleInputs(): Promise<[FluidMode, FluidMode, string]> {
   });
 }
 
-const [sourceRelay, targetRelay, mapIdentity] = await readMultipleInputs();
+const [sourceRelay, targetRelay, sourceId] = await readMultipleInputs();
 
-await mapSync(mapIdentity, sourceRelay, targetRelay).then((targetMap) => {
-  console.log(`Replicating ${mapIdentity} to: ${targetMap.mapId()}`);
-});
+await mapSync(sourceId, undefined, sourceRelay, targetRelay).then(
+  (sharedMaps) => {
+    console.log(`Replicating ${sourceId} to: ${sharedMaps.targetMap.mapId()}`);
+  }
+);

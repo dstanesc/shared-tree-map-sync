@@ -1,7 +1,7 @@
 {
   "name": "@dstanesc/shared-tree-map-sync",
   "description": "Agent for synchronizing shared-tree-map across relays",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/dstanesc/shared-tree-map-sync",
   "repository": "https://github.com/dstanesc/shared-tree-map-sync.git",
   "license": "MIT",

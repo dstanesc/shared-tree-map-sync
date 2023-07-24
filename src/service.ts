@@ -1,13 +1,14 @@
-import { FluidMode, initMap } from "@dstanesc/shared-tree-map";
+import { FluidMode, SharedTreeMap, initMap } from "@dstanesc/shared-tree-map";
 
 export async function mapSync(
-  sourceId: string,
+  sourceId: string | undefined,
+  targetId: string | undefined,
   source: FluidMode,
   target: FluidMode
-) {
+): Promise<{ sourceMap: SharedTreeMap; targetMap: SharedTreeMap }> {
   const { sourceMap, targetMap } = await mapSyncOnce(
     sourceId,
-    undefined,
+    targetId,
     source,
     target
   );
@@ -24,7 +25,7 @@ export async function mapSync(
       targetMap.delete(key);
     }
   );
-  return targetMap;
+  return { sourceMap, targetMap };
 }
 
 export async function mapSyncOnce(
@@ -32,7 +33,7 @@ export async function mapSyncOnce(
   targetId: string | undefined,
   source: FluidMode,
   target: FluidMode
-) {
+): Promise<{ sourceMap: SharedTreeMap; targetMap: SharedTreeMap }> {
   const sourceMap = await initMap(sourceId, source);
   const targetMap = await initMap(targetId, target);
   console.log("replica id", targetMap.mapId());
