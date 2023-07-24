@@ -6,7 +6,7 @@ See also [shared-tree-map library](https://github.com/dstanesc/shared-tree-map),
 
 ## Demo
 
-Demonstrates incremental synchronization between two `shared-tree-map` instances. First `shared-tree-map` instantiation is used for local, low latency collaboration between collocated apps. The local relay is Tinylicious. The collaboration session is continuously synchronized to a second `shared-tree-map` instance, stored in the cloud, ie. Azure Fluid Relay. The cloud instance could be used for instance as backup and recovery for the local collaboration session.
+Demonstrates incremental synchronization between two `shared-tree-map` instances. First `shared-tree-map` instantiation is used for local, low latency collaboration between collocated apps. The local relay is Tinylicious. The collaboration session is synchronized incrementally to a second `shared-tree-map` instance, stored in the cloud, ie. Azure Fluid Relay. The cloud instance could be used for instance as backup and recovery for the local collaboration session.
 
 ![demo](img/map-sync.gif)
 
@@ -17,7 +17,7 @@ Demonstrates incremental synchronization between two `shared-tree-map` instances
 ```bash
 npm run clean
 npm run build
-````
+```
 
 ## Run
 
