@@ -10,8 +10,6 @@ Demonstrates incremental synchronization between two `shared-tree-map` instances
 
 ![demo](img/map-sync.gif)
 
-````bash
-
 ## Build
 
 ```bash
